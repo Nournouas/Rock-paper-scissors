@@ -116,4 +116,5 @@ function playGame() {
     }
 }
 
-playGame();
+const btn = document.querySelector("#lol");
+btn.addEventListener("click", playGame);
