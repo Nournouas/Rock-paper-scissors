@@ -63,32 +63,6 @@ function getHumanChoice() {
     }
 }
 
-/*function playGame() {
-    let humanScore = 0;
-    let computerScore = 0;
-    round = 0;*/
-
-
-
-    /*alert("are you ready to play? yes you are");
-
-    while (round < 5) {
-        playRound(getHumanChoice(), getComputerChoice());
-        alert("Human Score: " + humanScore);
-        alert("Computer Score: " + computerScore)
-        round++;
-    }
-
-    if (humanScore > computerScore){
-        alert("the human wins this competition")
-    } else if (humanScore < computerScore){
-        alert("the computer wins this competition")
-    } else {
-        alert("seems to be a draw this time")
-    }
-}
-*/
-
 
 function playRound(humanChoice, computerChoice) {
 
