@@ -1,4 +1,33 @@
+//variables
+let humanScore = 0;
+let computerScore = 0;
+let drawScore = 0;
+let round = 0;
 
+const rockButton = document.querySelector("#rock");
+const paperButton = document.querySelector("#paper");
+const scissorButton = document.querySelector("#scissor");
+const resetButton = document.querySelector("#reset");
+const resultDiv = document.querySelector("#results")
+
+rockButton.addEventListener("click", () => playRound("rock", getComputerChoice()));
+paperButton.addEventListener("click", () => playRound("paper", getComputerChoice()));
+scissorButton.addEventListener("click", () => playRound("scissor", getComputerChoice()));
+resetButton.addEventListener("click", () => resetGame());
+
+function resetGame(){
+    humanScore = 0;
+    computerScore = 0;
+    round = 0;
+    drawScore = 0;
+
+    rockButton.style.display = "inline-block";
+    paperButton.style.display = "inline-block";
+    scissorButton.style.display = "inline-block";
+    resetButton.style.display = "none";
+
+    resultDiv.textContent = "";
+}
 
 //this function randomly returns rock paper or scissor
 function getComputerChoice() {
@@ -15,7 +44,6 @@ function getComputerChoice() {
             hand = "scissor";
             break
     }
-    console.log("comp " + hand);
     return hand;
 }
 
@@ -35,70 +63,14 @@ function getHumanChoice() {
     }
 }
 
-function playGame() {
+/*function playGame() {
     let humanScore = 0;
     let computerScore = 0;
-    round = 0;
+    round = 0;*/
 
-    function playRound(humanChoice, computerChoice) {
-        let decide = humanChoice.concat(computerChoice);
-        let winner = "";
-        switch (decide){
-            case "rockrock":
-                winner = "Its a draw! Rock smashes against Rock hopelessly";
-                console.log(winner);
-                alert ("draw!");
-                break;
-            case "rockpaper":
-                winner = "You lose! the paper envelops the rock in a never ending darkness";
-                console.log(winner);
-                computerScore++;
-                alert ("computer wins this round!")
-                break;
-            case "rockscissor":
-                winner = "You win! The rock smshes the scissor into pieces as it tries to slice through the hardneded mineral";
-                console.log(winner);
-                humanScore++;
-                alert ("human wins this round!")
-                break;
-            case "scissorscissor":
-                winner = "Its a draw! The scissors clash endlessly and eventually both fall to the ground";
-                console.log(winner);
-                alert ("draw!");
-                break;
-            case "scissorpaper":
-                winner = "You win! the scissor easily slashes through the paper in one swift move";
-                console.log(winner);
-                humanScore++;
-                alert ("human wins this round!")
-                break;
-            case "scissorrock":
-                winner = "You lose! the scissor shatters to pieces as it tries to slash through the hard mineral";
-                console.log(winner);
-                computerScore++;
-                alert ("computer wins this round!")
-                break;
-            case "paperpaper":
-                winner = "It's a draw! the papers flap meaninglessly against each other achieving absolutely nothing";
-                console.log(winner);
-                alert ("draw!");
-                break;
-            case "paperrock":
-                winner = "You win! the paper easily swallows the rock into a pit of endless darkness";
-                console.log(winner);
-                humanScore++;
-                alert ("human wins this round!")
-                break;
-            case "paperscissor":
-                winner = "You lose! the paper is slashed into a million pieces by the sharp scissor";
-                console.log(winner);
-                computerScore++;
-                alert ("computer wins this round!")
-                break;
-        }
-    }
 
-    alert("are you ready to play? yes you are");
+
+    /*alert("are you ready to play? yes you are");
 
     while (round < 5) {
         playRound(getHumanChoice(), getComputerChoice());
@@ -115,6 +87,80 @@ function playGame() {
         alert("seems to be a draw this time")
     }
 }
+*/
 
-const btn = document.querySelector("#lol");
-btn.addEventListener("click", playGame);
+
+function playRound(humanChoice, computerChoice) {
+
+        
+    
+    let decide = humanChoice.concat(computerChoice);
+    let winner = "";
+    switch (decide){
+        case "rockrock":
+            winner = "Its a draw! Rock smashes against Rock hopelessly";
+            alert ("draw!");
+            drawScore++;
+            break;
+        case "rockpaper":
+            winner = "You lose! the paper envelops the rock in a never ending darkness";
+            alert ("computer wins this round!");
+            computerScore++;
+            break;
+        case "rockscissor":
+            winner = "You win! The rock smshes the scissor into pieces as it tries to slice through the hardneded mineral";
+            alert ("human wins this round!");
+            humanScore++;
+            break;
+        case "scissorscissor":
+            winner = "Its a draw! The scissors clash endlessly and eventually both fall to the ground";
+            alert ("draw!");
+            drawScore++;
+            break;
+        case "scissorpaper":
+            winner = "You win! the scissor easily slashes through the paper in one swift move";
+            alert ("human wins this round!");
+            humanScore++;
+            break;
+        case "scissorrock":
+            winner = "You lose! the scissor shatters to pieces as it tries to slash through the hard mineral";
+            alert ("computer wins this round!");
+            computerScore++;
+            break;
+        case "paperpaper":
+            winner = "It's a draw! the papers flap meaninglessly against each other achieving absolutely nothing";
+            alert ("draw!");
+            drawScore++;
+            break;
+        case "paperrock":
+            winner = "You win! the paper easily swallows the rock into a pit of endless darkness";
+            alert ("human wins this round!");
+            humanScore++;
+            break;
+        case "paperscissor":
+            winner = "You lose! the paper is slashed into a million pieces by the sharp scissor";
+            alert ("computer wins this round!");
+            computerScore++;
+            break;
+    }
+    round++;
+
+    if (round === 5 || computerScore >= 3 || humanScore >= 3){
+        if (humanScore > computerScore){
+            resultDiv.textContent = "--- The human wins this competition " + "--- Final Score: " + " Human: " + humanScore + ", Computer: " + computerScore + ", Draws: " + drawScore;
+        } else if (humanScore < computerScore){
+            resultDiv.textContent = "--- The computer wins this competition " + "--- Final Score: " + " Human: " + humanScore + ", Computer: " + computerScore + ", Draws: " + drawScore;
+        } else {
+            resultDiv.textContent = "--- Seems to be a draw this time " + "--- Final Score: " + " Human: " + humanScore + ", Computer: " + computerScore + ", Draws: " + drawScore;
+        }
+
+        rockButton.style.display = "none";
+        paperButton.style.display = "none";
+        scissorButton.style.display = "none";
+        resetButton.style.display = "block";
+    } else{
+        resultDiv.textContent = "Human: " + humanScore + ", Computer: " + computerScore + ", Draws: " + drawScore;
+    }
+}
+
+
